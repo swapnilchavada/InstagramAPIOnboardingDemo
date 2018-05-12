@@ -10,7 +10,7 @@ PAGE_ACCESS_TOKEN = app.config.get('PAGE_ACCESS_TOKEN')
 SEND_API_URL = 'https://graph.facebook.com/v2.12/me/messages?access_token=%s'\
   % PAGE_ACCESS_TOKEN
 
-PASS_THREAD_CONTROL_URL = 'https://graph.facebook.com/v2.12/me/pass_thread_control?access_token=%s'\
+PASS_THREAD_CONTROL_URL = 'https://graph.richrliu.sb.facebook.com/v2.12/me/pass_thread_control?access_token=%s'\
   % PAGE_ACCESS_TOKEN
 
 TAKE_THREAD_CONTROL_URL = 'https://graph.facebook.com/v2.12/me/take_thread_control?access_token=%s'\
