@@ -135,6 +135,7 @@ def webhook():
       return make_response('invalid params', 400)
   else: # POST
     body = json.loads(request.data)
+    print("swapnilc-Mydata")
     print(body)
     if body['object'] == 'page':
       # for entry in body['entry']:
