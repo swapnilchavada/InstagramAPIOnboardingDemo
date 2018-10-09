@@ -137,9 +137,5 @@ def webhook():
     body = json.loads(request.data)
     print("swapnilc-Mydata")
     print(body)
-    if body['object'] == 'page':
-      # for entry in body['entry']:
-        # handle_entry(entry)
-      return 'EVENT_RECEIVED'
-    else:
-      return make_response('not found', 404)
+    return 'EVENT_RECEIVED'
+
