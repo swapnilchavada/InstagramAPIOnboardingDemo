@@ -137,5 +137,5 @@ def webhook():
     body = json.loads(request.data)
     print("swapnilc-Mydata")
     print(body)
-    return ('', 204)
+    return (None, 204)
 
