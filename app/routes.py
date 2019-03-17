@@ -30,6 +30,8 @@ def send_message(body):
         if 'messaging' in entry:
           for message in entry['messaging']:
             sender = message['sender']['id']
+            if 'message' not in message:
+              return 
             if 'is_echo' in message['message']:
               return 
             print('sender1111')
