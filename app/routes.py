@@ -25,15 +25,15 @@ ME = '2144413385777414'
 def send_message(body):
   print('send_message')
   print(body)
-  try:
-    sender = body['entry'][0]['messaging'][0]['sender']['id]
-    print('sender')
-    print(sender)
-    if sender == ME:
-      return    
-  except Exception as e:
-     print("swapnilc-Exception sending")
-     print(e)
+#   try:
+#     sender = body['entry'][0]['messaging'][0]['sender']['id]
+#     print('sender')
+#     print(sender)
+#     if sender == ME:
+#       return    
+#   except Exception as e:
+#      print("swapnilc-Exception sending")
+#      print(e)
       
       
 def send_message_to_recipient(message_text, recipient_id):
