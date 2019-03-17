@@ -5,7 +5,7 @@ import json
 import requests
 
 WEBHOOK_VERIFY_TOKEN = 'test_faq_token'
-PAGE_ACCESS_TOKEN = app.config.get('PAGE_ACCESS_TOKEN')
+PAGE_ACCESS_TOKEN = 'EAAeeVSYcYQYBAHng9dsVAiRdvy1kKttTvWFkcmoU2fwUr44vnJXVQJfXzuZCL8FAUM9IqZCqlZBgaWMbRw6JQ09xlF9s130Syzt1trfbZCC1jxbM4IHtPqxVXRg6DB11rsDheteFCtLuXHqJWTXqHkz4gMV7QZBRATgucFmF2ywZDZD'
 
 SEND_API_URL = 'https://graph.facebook.com/v2.12/me/messages?access_token=%s'\
   % PAGE_ACCESS_TOKEN
@@ -20,8 +20,22 @@ HEADERS = {'content-type': 'application/json'}
 
 PAGE_INBOX = 263902037430900
 
-ME = '816547138552308'
+ME = '2144413385777414'
 
+def send_message(body):
+  print('send_message')
+  print(body)
+  try:
+    sender = body['entry'][0]['messaging'][0]['sender'['id]
+    print('sender')
+    print(sender)
+    if sender == ME:
+      return    
+  except Exception as e:
+     print("swapnilc-Exception sending")
+     print(e)
+      
+      
 def send_message_to_recipient(message_text, recipient_id):
   message = {
     'recipient': {
@@ -137,5 +151,6 @@ def webhook():
     body = json.loads(request.data)
     print("swapnilc-Mydata")
     print(body)
+    send_message(body)
     return ("", 205)
 
