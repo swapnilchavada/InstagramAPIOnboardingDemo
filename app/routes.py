@@ -30,9 +30,9 @@ def send_message(body):
         if 'messaging' in entry:
           for message in entry['messaging']:
             sender = message['sender']['id']
-            if 'message' not in message:
+            if 'message' in message and 'is_echo' in message['message']:
               return 
-            if 'is_echo' in message['message']:
+            if 'message' not in message and 'postback' not in message:
               return 
             print('sender1111')
             send_message_to_recipient(json.dumps(body), sender)
