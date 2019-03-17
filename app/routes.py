@@ -20,7 +20,7 @@ HEADERS = {'content-type': 'application/json'}
 
 PAGE_INBOX = 263902037430900
 
-ME = '2144413385777414'
+ME = '620697518375534'
 
 def send_message(body):
   print('send_message')
@@ -30,10 +30,10 @@ def send_message(body):
         if 'messaging' in entry:
           for message in entry['messaging']:
             sender = message['sender']['id']
-            if sender == ME:
+            if 'is_echo' in message['message']:
               return 
             print('sender1111')
-            send_message_to_recipient('dsdsds', sender)
+            send_message_to_recipient(json.dumps(body), sender)
             print('sender')
             print(sender)
             return
