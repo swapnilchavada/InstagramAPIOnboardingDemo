@@ -26,7 +26,6 @@ def send_message(body):
   print('send_message')
   print(body)
   try:
-    message
     for entry in body['entry']:
         if 'messaging' in entry:
           for message in entry['messaging']:
