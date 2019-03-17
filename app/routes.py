@@ -26,7 +26,7 @@ def send_message(body):
   print('send_message')
   print(body)
   try:
-    sender = body['entry'][0]['messaging'][0]['sender'['id]
+    sender = body['entry'][0]['messaging'][0]['sender']['id]
     print('sender')
     print(sender)
     if sender == ME:
