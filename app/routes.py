@@ -39,6 +39,18 @@ def send_message(body):
             print('sender')
             print(sender)
             return
+        if 'standby' in entry:
+          for message in entry['standby']:
+            sender = message['sender']['id']
+            if 'message' in message and 'is_echo' in message['message']:
+              return 
+            if 'message' not in message and 'postback' not in message:
+              return 
+            print('sender1111')
+            send_message_to_recipient(json.dumps(body), sender)
+            print('sender')
+            print(sender)
+            return
             
     print('sender')
   except Exception as e:
