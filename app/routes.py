@@ -24,8 +24,6 @@ ME = '620697518375534'
 
 @app.route('/')
 @app.route('/index')
-@app.route('/webhook', methods=['GET', 'POST'])
-
 def index():
   print('send_message in indexx')
   return 'Hello, World!'
@@ -55,6 +53,7 @@ def send_message_to_recipient(message_text, recipient_id):
     print(r.json())
     print('==============')
 
+@app.route('/webhook', methods=['GET', 'POST'])
 def webhook():
   if request.method == 'GET':
     mode = request.args['hub.mode']
