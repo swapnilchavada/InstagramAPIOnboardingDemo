@@ -22,42 +22,23 @@ PAGE_INBOX = 263902037430900
 
 ME = '620697518375534'
 
+@app.route('/')
+@app.route('/index')
+@app.route('/webhook', methods=['GET', 'POST'])
+
+def index():
+  return 'Hello, World!'
+
 def send_message(body):
   print('send_message')
   print(body)
   try:
-    for entry in body['entry']:
-        if 'messaging' in entry:
-          for message in entry['messaging']:
-            sender = message['sender']['id']
-            if 'message' in message and 'is_echo' in message['message']:
-              return 
-            if 'message' not in message and 'postback' not in message:
-              return 
-            print('sender1111')
-            send_message_to_recipient(json.dumps(body), sender)
-            print('sender')
-            print(sender)
-            return
-        if 'standby' in entry:
-          for message in entry['standby']:
-            sender = message['sender']['id']
-            if 'message' in message and 'is_echo' in message['message']:
-              return 
-            if 'message' not in message and 'postback' not in message:
-              return 
-            print('sender1111')
-            send_message_to_recipient(json.dumps(body), sender)
-            print('sender')
-            print(sender)
-            return
-            
+    #send_message_to_recipient(json.dumps(body), sender)
     print('sender')
   except Exception as e:
      print("swapnilc-Exception sending")
      print(e)
-      
-      
+     
 def send_message_to_recipient(message_text, recipient_id):
   message = {
     'recipient': {
@@ -73,90 +54,6 @@ def send_message_to_recipient(message_text, recipient_id):
     print(r.json())
     print('==============')
 
-def pass_thread_control(app_id, recipient_id):
-  payload = {
-    'recipient': {
-      'id': recipient_id,
-    },
-    'target_app_id': app_id,
-  }
-  r = requests.post(PASS_THREAD_CONTROL_URL, data=json.dumps(payload), headers=HEADERS)
-  if r.status_code != 200:
-    print('====ERROR====')
-    print(r.json())
-    print(r.request.data)
-    print('==============')
-
-def take_thread_control(recipient_id):
-  payload = {
-    'recipient': {
-      'id': recipient_id,
-    },
-  }
-  r = requests.post(TAKE_THREAD_CONTROL_URL, data=json.dumps(payload), headers=HEADERS)
-  if r.status_code != 200:
-    print('====ERROR====')
-    print(r.json())
-    print(r.request.data)
-    print('==============')
-
-def pass_thread_control_to_page_inbox(recipient_id):
-  pass_thread_control(PAGE_INBOX, recipient_id)
-
-def handle_messaging_event(message):
-  sender = message['sender']['id']
-  if sender == ME:
-    return
-
-  if 'request_thread_control' in message:
-    send_message_to_recipient('Transferring you to live agent.', sender)
-    pass_thread_control(message['request_thread_control']['requested_owner_app_id'], sender)
-    return
-
-  if 'message' not in message:
-    return
-  if 'text' not in message['message']:
-    return
-  message_text = message['message']['text']
-  if 'return policy' in message_text:
-    send_message_to_recipient('We offer full refunds up to 30 days, with a valid receipt.', sender)
-  elif 'address' in message_text:
-    send_message_to_recipient('You can find us at 123 Hacker Way, Menlo Park, CA 94025.', sender)
-  elif 'hours' in message_text:
-    send_message_to_recipient('We\'re open 9:00 AM - 5:30 PM from Monday to Saturday.', sender)
-  else:
-    send_message_to_recipient('I\'m sorry, I am not able to help with that. I\'ll transfer you over to a live agent.', sender)
-    pass_thread_control_to_page_inbox(sender)
-
-def handle_standby_event(standby_event):
-  if 'sender' not in standby_event:
-    return
-  if 'id' not in standby_event['sender']:
-    return
-  sender = standby_event['sender']['id']
-  if 'message' not in standby_event:
-    return
-  if 'text' not in standby_event['message']:
-    return
-  message_text = standby_event['message']['text']
-  if 'deliver' in message_text:
-    take_thread_control(sender)
-    send_message_to_recipient('I noticed you asking about delivery options. Let me redirect you to our automated delivery processing service.', sender)
-
-def handle_entry(entry):
-  if 'messaging' in entry:
-    for message in entry['messaging']:
-      handle_messaging_event(message)
-  elif 'standby' in entry:
-    for standby_event in entry['standby']:
-      handle_standby_event(standby_event)
-
-@app.route('/')
-@app.route('/index')
-def index():
-  return 'Hello, World!'
-
-@app.route('/webhook', methods=['GET', 'POST'])
 def webhook():
   if request.method == 'GET':
     mode = request.args['hub.mode']
