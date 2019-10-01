@@ -27,6 +27,7 @@ ME = '620697518375534'
 @app.route('/webhook', methods=['GET', 'POST'])
 
 def index():
+  print('send_message in indexx')
   return 'Hello, World!'
 
 def send_message(body):
