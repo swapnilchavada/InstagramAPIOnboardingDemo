@@ -1,27 +1,3 @@
-Skip to content
-Search or jump to…
-
-Pull requests
-Issues
-Marketplace
-Explore
- 
-@swapnilchavada 
-Learn Git and GitHub without any code!
-Using the Hello World guide, you’ll start a branch, write comments, and open a pull request.
-
-
-0
-01swapnilchavada/messenger-webhook-post
- Code Issues 0 Pull requests 0 Projects 0 Wiki Security Insights Settings
-messenger-webhook-post/app/routes.py
-@swapnilchavada swapnilchavada Update routes.py
-f45163a on Apr 21
-We found potential security vulnerabilities in your dependencies.
-Only the owner of this repository can see this message.
-
-186 lines (162 sloc)  5.91 KB
-  
 from app import app
 from flask import make_response, request
 
@@ -207,15 +183,3 @@ def webhook():
     send_message(body)
     return ("", 205)
 
-© 2019 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Help
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
