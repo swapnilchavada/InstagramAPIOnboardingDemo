@@ -11,15 +11,6 @@ SEND_API_URL = 'https://graph.facebook.com/v4.0/me/messages?access_token=%s'\
 
 HEADERS = {'content-type': 'application/json'}
 IG_ACC_TO_REPLY = 90010159460687
-
-def send_message(body):
-  try:
-    #send_message_to_recipient(json.dumps(body), sender, recipient_id)
-    print('sender')
-    #print(sender)
-  except Exception as e:
-     print("swapnilc-Exception sending")
-     print(e)
       
       
 def send_message(body):
@@ -27,26 +18,30 @@ def send_message(body):
   print(body)
   try:
     for entry in body['entry']:
+      print(entry)
       if(entry['id'] != IG_ACC_TO_REPLY):
         return
+      print('entry')
+      print(entry)
       for message in entry['messaging']:
-          sender = message['sender']['id']
-          recipient_id =  message['recipient']['id']
-          if 'message' in message: 
-            webhook_type='message'
-          else:
+        print(message)
+        sender = message['sender']['id']
+        recipient_id =  message['recipient']['id']
+        if 'message' in message: 
+          webhook_type='message'
+        else:
+          return
+        if 'text' in message[webhook_type]:
+          msg_text = message[webhook_type]['text']
+          if 'echoing_back' in msg_text:
             return
-          if 'text' in message[webhook_type]:
-            msg_text = message[webhook_type]['text']
-            if 'echoing_back' in msg_text:
-              return
-          body['echoing_back'] = 'true'
-          if 'is_echo' in message[webhook_type]:
-            send_message_to_recipient(json.dumps(body), recipient_id, sender)
-            print('sent message to', recipient_id)
-          else:
-            send_message_to_recipient(json.dumps(body), sender, recipient_id)
-            print('sent message to', sender)
+        body['echoing_back'] = 'true'
+        if 'is_echo' in message[webhook_type]:
+          send_message_to_recipient(json.dumps(body), recipient_id, sender)
+          print('sent message to', recipient_id)
+        else:
+          send_message_to_recipient(json.dumps(body), sender, recipient_id)
+          print('sent message to', sender)
   except Exception as e:
      print("swapnilc-Exception sending")
      print(e)
