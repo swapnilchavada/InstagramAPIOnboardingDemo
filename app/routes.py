@@ -27,7 +27,7 @@ def send_message(body):
   print(body)
   try:
     for entry in body['entry']:
-      if(entry['id'] !== IG_ACC_TO_REPLY):
+      if(entry['id'] != IG_ACC_TO_REPLY):
         return
       for message in entry['messaging']:
           sender = message['sender']['id']
