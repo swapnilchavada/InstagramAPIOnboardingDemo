@@ -14,17 +14,11 @@ IG_ACC_TO_REPLY = '90010159460687'
       
       
 def send_message(body):
-  print('send_message')
-  print(body)
   try:
     for entry in body['entry']:
-      print(entry)
       if(entry['id'] != IG_ACC_TO_REPLY):
         return
-      print('entry')
-      print(entry)
       for message in entry['messaging']:
-        print(message)
         sender = message['sender']['id']
         recipient_id =  message['recipient']['id']
         if 'message' in message: 
