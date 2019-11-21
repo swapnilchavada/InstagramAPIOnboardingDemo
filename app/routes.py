@@ -5,34 +5,48 @@ import json
 import requests
 
 WEBHOOK_VERIFY_TOKEN = 'test_faq_token'
-PAGE_ACCESS_TOKEN = 'EAAeeVSYcYQYBAHng9dsVAiRdvy1kKttTvWFkcmoU2fwUr44vnJXVQJfXzuZCL8FAUM9IqZCqlZBgaWMbRw6JQ09xlF9s130Syzt1trfbZCC1jxbM4IHtPqxVXRg6DB11rsDheteFCtLuXHqJWTXqHkz4gMV7QZBRATgucFmF2ywZDZD'
-#this is for page Page_thread_queue_test
-PAGE_ACCESS_TOKEN2 = 'EAAeeVSYcYQYBAOVAMY6T8t6htQMnJ3gGZBfq9H7VsvRaazNsqJ6FIfsIYK2GBAWRNrFzyB95BADbeZBZClDP6Vdf7Jp7gtpYIIur4oPZCBl4VXpAf3P4kjM8ldR3heOXbUZCFBzvk6rfB0iTPOlqhSKUySb8afVp8rLNnBMR1O0E71D1vfOlvAu3g0lvGRAkZD'
-
-SEND_API_URL = 'https://graph.facebook.com/v2.12/me/messages?access_token=%s'\
-  % PAGE_ACCESS_TOKEN
-SEND_API_URL2 = 'https://graph.facebook.com/v2.12/me/messages?access_token=%s'\
-  % PAGE_ACCESS_TOKEN2
-
-PASS_THREAD_CONTROL_URL = 'https://graph.facebook.com/v2.12/me/pass_thread_control?access_token=%s'\
-  % PAGE_ACCESS_TOKEN
-
-TAKE_THREAD_CONTROL_URL = 'https://graph.facebook.com/v2.12/me/take_thread_control?access_token=%s'\
-% PAGE_ACCESS_TOKEN
+PAGE_ACCESS_TOKEN = 'EAAkHglUjoaIBAH2wmaM8BRwdJjXmJmtyuLOI9OEpByxGQWSLXXq8ZCmSmtjheoQZAPEXktZCzRFiYNEdUpwViPZChnamTjhguYZB48ktQkJ2jgUcMNIWOnQZCIfNiLL6BQN4r6WKeVt3x8U48pmaKQvZCiZC9zQmUFVbZBBkO3dyeLgZCBN1ZCaDoKWxy8e0Fc0LowZD'
+SEND_API_URL = 'https://graph.facebook.com/v4.0/me/messages?access_token=%s'\
+  %PAGE_ACCESS_TOKEN
 
 HEADERS = {'content-type': 'application/json'}
-
-PAGE_INBOX = 263902037430900
-
-ME = '620697518375534'
+IG_ACC_TO_REPLY = 90010159460687
 
 def send_message(body):
-  print('send_message')
-  print(body)
   try:
     #send_message_to_recipient(json.dumps(body), sender, recipient_id)
     print('sender')
     #print(sender)
+  except Exception as e:
+     print("swapnilc-Exception sending")
+     print(e)
+      
+      
+def send_message(body):
+  print('send_message')
+  print(body)
+  try:
+    for entry in body['entry']:
+      if(entry['id'] !== IG_ACC_TO_REPLY):
+        return
+      for message in entry['messaging']:
+          sender = message['sender']['id']
+          recipient_id =  message['recipient']['id']
+          if 'message' in message: 
+            webhook_type='message'
+          else:
+            return
+          if 'text' in message[webhook_type]:
+            msg_text = message[webhook_type]['text']
+            if 'echoing_back' in msg_text:
+              return
+          body['echoing_back'] = 'true'
+          if 'is_echo' in message[webhook_type]:
+            send_message_to_recipient(json.dumps(body), recipient_id, sender)
+            print('sent message to', recipient_id)
+          else:
+            send_message_to_recipient(json.dumps(body), sender, recipient_id)
+            print('sent message to', sender)
   except Exception as e:
      print("swapnilc-Exception sending")
      print(e)
@@ -47,12 +61,13 @@ def send_message_to_recipient(message_text, recipient_id, page_id):
       'text': message_text,
     },
   }
-  r = requests.post(SEND_API_URL if page_id == '620697518375534' else SEND_API_URL2, data=json.dumps(message), headers=HEADERS)
+  r = requests.post(SEND_API_URL, data=json.dumps(message), headers=HEADERS)
   if r.status_code != 200:
     print('== ERROR====')
     print(SEND_API_URL)
     print(r.json())
     print('==============')
+
 
 @app.route('/')
 @app.route('/index')
