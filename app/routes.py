@@ -23,6 +23,8 @@ def send_message(body):
         recipient_id =  message['recipient']['id']
         if 'message' in message: 
           webhook_type='message'
+        elif 'postback' in message: 
+          webhook_type='postback'
         else:
           return
         if 'text' in message[webhook_type]:
