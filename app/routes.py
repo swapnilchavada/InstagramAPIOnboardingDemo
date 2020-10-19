@@ -31,6 +31,8 @@ def send_message(body):
           msg_text = message[webhook_type]['text']
           if 'echoing_back' in msg_text:
             return
+          elif 'qr' in msg_text:
+            send_message_with_qr_to_recipient(sender, recipient_id)
         body['echoing_back'] = 'true'
         if 'is_echo' in message[webhook_type]:
           send_message_to_recipient(json.dumps(body), recipient_id, sender)
@@ -42,7 +44,91 @@ def send_message(body):
      print("swapnilc-Exception sending")
      print(e)
       
-      
+def send_message_with_qr_to_recipient(recipient_id, page_id):
+  message = {
+    'recipient': {
+      'id': recipient_id,
+    },
+    'message': {
+    "text": "Pick a color echoing_back :",
+    "quick_replies":[
+      {
+        "content_type":"text",
+        "title":"Max 20 chars-Long Long Text for QR Testing",
+        "payload":"red-payload",
+      },
+      {
+        "content_type":"text",
+        "title":"Max 20 chars-Long Long Text for QR Testing",
+        "payload":"green-payload",
+     },
+     {
+        "content_type":"text",
+        "title":"Max 20 chars-Long Long Text for QR Testing",
+        "payload":"green-payload",
+     },
+     {
+        "content_type":"text",
+        "title":"Max 20 chars-Long Long Text for QR Testing",
+        "payload":"yellow-payload",
+     },
+      {
+        "content_type":"text",
+        "title":"Max 20 chars-Long Long Text for QR Testing",
+        "payload":"blue-payload",
+     },
+     {
+        "content_type":"text",
+        "title":"Max 20 chars-Long Long Text for QR Testing",
+        "payload":"red-payload",
+      },
+      {
+        "content_type":"text",
+        "title":"Max 20 chars-Long Long Text for QR Testing",
+        "payload":"green-payload",
+     },
+     {
+        "content_type":"text",
+        "title":"Max 20 chars-Long Long Text for QR Testing",
+        "payload":"green-payload",
+     },
+      {
+        "content_type":"text",
+        "title":"Max 20 chars-Long Long Text for QR Testing",
+        "payload":"yellow-payload",
+     },
+      {
+        "content_type":"text",
+        "title":"Max 20 chars-Long Long Text for QR Testing",
+        "payload":"blue-payload",
+     },
+     {
+        "content_type":"text",
+        "title":"Max 20 chars-Long Long Text for QR Testing",
+        "payload":"red-payload",
+      },
+      {
+        "content_type":"text",
+        "title":"Max 20 chars-Long Long Text for QR Testing",
+        "payload":"green-payload",
+     },
+     {
+        "content_type":"text",
+        "title":"Max 20 chars-Long Long Text for QR Testing",
+        "payload":"green-payload",
+     }
+    ]
+  },
+    'tag': 'human_agent',
+  }
+  r = requests.post(SEND_API_URL, data=json.dumps(message), headers=HEADERS)
+  if r.status_code != 200:
+    print('== ERROR====')
+    print(SEND_API_URL)
+    print(r.json())
+    print('==============')
+
+    
 def send_message_to_recipient(message_text, recipient_id, page_id):
   message = {
     'recipient': {
