@@ -33,6 +33,7 @@ def send_message(body):
             return
           elif 'qr' in msg_text:
             send_message_with_qr_to_recipient(sender, recipient_id)
+            return
         body['echoing_back'] = 'true'
         if 'is_echo' in message[webhook_type]:
           send_message_to_recipient(json.dumps(body), recipient_id, sender)
@@ -54,27 +55,27 @@ def send_message_with_qr_to_recipient(recipient_id, page_id):
     "quick_replies":[
       {
         "content_type":"text",
-        "title":"Max 20 chars-Long Long Text for QR Testing",
+        "title":"Red",
         "payload":"red-payload",
       },
       {
         "content_type":"text",
-        "title":"Max 20 chars-Long Long Text for QR Testing",
+        "title":"Green",
         "payload":"green-payload",
      },
      {
         "content_type":"text",
-        "title":"Max 20 chars-Long Long Text for QR Testing",
-        "payload":"green-payload",
+        "title":"Purple",
+        "payload":"purple-payload",
      },
      {
         "content_type":"text",
-        "title":"Max 20 chars-Long Long Text for QR Testing",
+        "title":"Yellow",
         "payload":"yellow-payload",
      },
       {
         "content_type":"text",
-        "title":"Max 20 chars-Long Long Text for QR Testing",
+        "title":"Blue",
         "payload":"blue-payload",
      },
      {
