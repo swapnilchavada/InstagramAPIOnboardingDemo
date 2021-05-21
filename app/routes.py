@@ -18,7 +18,11 @@ def send_message(body):
     for entry in body['entry']:
       if(entry['id'] != IG_ACC_TO_REPLY):
         return
-      for message in entry['messaging']:
+      if 'standby' in entry: 
+        channel='standby'
+      else: 
+        channel='messaging'
+      for message in entry[channel]:
         sender = message['sender']['id']
         recipient_id =  message['recipient']['id']
         if 'message' in message: 
