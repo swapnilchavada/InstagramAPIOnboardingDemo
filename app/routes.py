@@ -5,7 +5,7 @@ import json
 import requests
 
 WEBHOOK_VERIFY_TOKEN = 'test_faq_token'
-PAGE_ACCESS_TOKEN = 'EAAMlFltcHiYBACytCN9sLWnk1UD2eyyRqZAHegTIHmWKWn0ugsli4DZAuxOZCWpqYuDE4ukQZAKpfAqonvZCmSwpebvkdnQZBlBnGF5tc3i6q1Di3z7lKTpcZBvsjGOiV9IpEnR05uNpXblHldflM7gkmMWTyqZAdiMd8zAouuDm0kgqgALbNLZA7'
+PAGE_ACCESS_TOKEN = ${{secrets.ACCESS_TOKEN_GO_TAHOE}}
 SEND_API_URL = 'https://graph.facebook.com/v5.0/me/messages?access_token=%s'\
   %PAGE_ACCESS_TOKEN
 
