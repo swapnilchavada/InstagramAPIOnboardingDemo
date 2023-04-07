@@ -144,6 +144,6 @@ def send_message_to_recipient(message_text, recipient_id, page_id):
   print("Send api response", r.json())
 
 
-@app.route('/favicon.ico')
-def favicon():
-    return url_for('static', filename='favicon.ico')
+# @app.route('/favicon.ico')
+# def favicon():
+#     return url_for('static', filename='favicon.ico')
