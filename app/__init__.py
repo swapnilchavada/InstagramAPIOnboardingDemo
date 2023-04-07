@@ -5,6 +5,7 @@ import os
 from .config_values import DevelopmentConfig, ProductionConfig
 
 app = Flask(__name__)
+# c = DevelopmentConfig()
 c = ProductionConfig()
 app.config.from_object(c)
 

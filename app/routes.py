@@ -49,6 +49,7 @@ def login_success():
   long_live_access_token_response = requests.get(long_live_access_token_url)
   long_live_access_token_response = long_live_access_token_response.json()
   page_access_token = long_live_access_token_response['access_token']
+  print("page_access_token", page_access_token)
   # Might want to save this access tokn at this point in Database
 
   # call conversations api, just to demo this works
@@ -130,5 +131,5 @@ def send_message_to_recipient(message_text, recipient_id, page_id):
 
   base_graph_api_url = app.config.get('BASE_GRAPH_API_URL')
   send_api_url = '{}me/messages?access_token={}'.format(base_graph_api_url, page_access_token)
-  r = requests.post(SEND_API_URL, data=json.dumps(message), headers=HEADERS)
+  r = requests.post(send_api_url, data=json.dumps(message), headers=HEADERS)
   print("Send api response", r.json())
