@@ -52,6 +52,12 @@ def login_success():
   print("page_access_token", page_access_token)
   # Might want to save this access tokn at this point in Database
 
+  # Webhook setup
+  # Subscribe to any random page webhook field (Feed) to listen to instagram message webhooks
+  page_webhook_url = '{}me/subscribed_apps?topic=page&subscribed_fields=feed&access_token={}'.format(base_graph_api_url, page_access_token)
+  requests.post(page_webhook_url, headers=HEADERS)
+  print("success webhook")
+
   # call conversations api, just to demo this works
   conversations_api_url = '{}me/conversations?fields=participants&platform=instagram&access_token={}'.format(base_graph_api_url, page_access_token)
   conversations_api_url_response = requests.get(conversations_api_url)
