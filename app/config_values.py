@@ -9,7 +9,7 @@ class Config(object):
     REDIRECT_URL = 'https%3A%2F%2F127.0.0.1:5000%2Flogin_success'
 
 class ProductionConfig(Config):
-    REDIRECT_URL = 'https%3A%2F%2Fwww.ig-business-onboarding-demo-1.herokuapp.com%2Flogin_success'
+    REDIRECT_URL = 'https%3A%2F%2Fig-business-onboarding-demo-1.herokuapp.com%2Flogin_success'
 
 class DevelopmentConfig(Config):
     DEBUG = True
