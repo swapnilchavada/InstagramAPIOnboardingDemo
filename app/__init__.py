@@ -5,8 +5,7 @@ import os
 # from config import DevelopmentConfig
 
 app = Flask(__name__)
-# app.config['PAGE_ACCESS_TOKEN'] = os.environ.get('PAGE_ACCESS_TOKEN')
-# c = ProductionConfig()
+# c = DevelopmentConfig()
 # app.config.from_object(c)
 
 from app import routes
