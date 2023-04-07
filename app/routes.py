@@ -106,9 +106,8 @@ def send_message(body):
           if 'echo_back' not in msg_text:
             #ignore if no_reply in message
             return
-          msg_text = 'BOT SAYS: ' + msg_text
         body['echoing_back'] = 'true'
-        send_message_to_recipient(json.dumps(body), sender, recipient_id)
+        send_message_to_recipient('BOT SAYS: ** ' + json.dumps(body), sender, recipient_id)
         print('sent message to', sender)
   except Exception as e:
      print("Exception sending", e)
