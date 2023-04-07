@@ -1,5 +1,5 @@
 from app import app
-from flask import make_response, request, render_template
+from flask import make_response, request, render_template, url_for
 
 import json
 import requests
@@ -140,3 +140,8 @@ def send_message_to_recipient(message_text, recipient_id, page_id):
   send_api_url = '{}me/messages?access_token={}'.format(base_graph_api_url, page_access_token)
   r = requests.post(SEND_API_URL, data=json.dumps(message), headers=HEADERS)
   print("Send api response", r.json())
+
+
+@app.route('/favicon.ico')
+def favicon():
+    return url_for('static', filename='favicon.ico')
