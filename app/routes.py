@@ -13,12 +13,14 @@ IG_ACC_TO_REPLY = '17841453418980195'
 @app.route('/index')
 def index():
   print("index")
-  app_id = app.config.get('APP_ID')
-  redirect_uri = app.config.get('REDIRECT_URL')
+  return "<h1>Welcome to Geeks for Geeks</h1>"
 
-  url = 'https://www.facebook.com/dialog/oauth?client_id={}&response_type=code&display=page&redirect_uri={}&scope=instagram_manage_messages%2Cinstagram_basic%2Cpages_manage_metadata&extras=%7B%22setup%22%3A%7B%22channel%22%3A%22IG_API_ONBOARDING%22%7D%7D"'.format(app_id, redirect_uri)
-  print('print', url)
-  return render_template('fb-login.html', fb_login_link =url )
+  # app_id = app.config.get('APP_ID')
+  # redirect_uri = app.config.get('REDIRECT_URL')
+
+  # url = 'https://www.facebook.com/dialog/oauth?client_id={}&response_type=code&display=page&redirect_uri={}&scope=instagram_manage_messages%2Cinstagram_basic%2Cpages_manage_metadata&extras=%7B%22setup%22%3A%7B%22channel%22%3A%22IG_API_ONBOARDING%22%7D%7D"'.format(app_id, redirect_uri)
+  # print('print', url)
+  # return render_template('fb-login.html', fb_login_link =url )
 
 @app.route('/login_success')
 def login_success():
