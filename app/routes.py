@@ -144,6 +144,6 @@ def index():
 #   print("Send api response", r.json())
 
 
-# # @app.route('/favicon.ico')
-# # def favicon():
-# #     return url_for('static', filename='favicon.ico')
+@app.route('/favicon.ico')
+def favicon():
+    return url_for('static', filename='favicon.ico')
